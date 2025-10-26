@@ -45,6 +45,14 @@ namespace AdMediationLab
         private Dictionary<AdType, IAdProvider> adProviders = new Dictionary<AdType, IAdProvider>();
         private bool isInitialized = false;
 
+        // 公共方法供其他類別觸發事件
+        public static void TriggerAdLoaded(AdResult result) => OnAdLoaded?.Invoke(result);
+        public static void TriggerAdFailedToLoad(AdResult result) => OnAdFailedToLoad?.Invoke(result);
+        public static void TriggerAdShown(AdResult result) => OnAdShown?.Invoke(result);
+        public static void TriggerAdClosed(AdResult result) => OnAdClosed?.Invoke(result);
+        public static void TriggerAdRewarded(AdResult result) => OnAdRewarded?.Invoke(result);
+        public static void TriggerAdRevenue(AdRevenue revenue) => OnAdRevenue?.Invoke(revenue);
+
         private void Awake()
         {
             if (_instance == null)

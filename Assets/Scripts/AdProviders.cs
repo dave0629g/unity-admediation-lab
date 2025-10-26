@@ -44,7 +44,7 @@ namespace AdMediationLab
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
                     isLoaded = true;
-                    AdMediationManager.OnAdLoaded?.Invoke(new AdResult(AdType.Banner, true));
+                    AdMediationManager.TriggerAdLoaded(new AdResult(AdType.Banner, true));
                 }, 1f));
         }
 
@@ -59,7 +59,7 @@ namespace AdMediationLab
 
             Debug.Log("[BannerAd] 顯示橫幅廣告");
             isShowing = true;
-            AdMediationManager.OnAdShown?.Invoke(new AdResult(AdType.Banner, true));
+            AdMediationManager.TriggerAdShown(new AdResult(AdType.Banner, true));
             onComplete?.Invoke(true);
         }
 
@@ -75,7 +75,7 @@ namespace AdMediationLab
             {
                 Debug.Log("[BannerAd] 隱藏橫幅廣告");
                 isShowing = false;
-                AdMediationManager.OnAdClosed?.Invoke(new AdResult(AdType.Banner, true));
+                AdMediationManager.TriggerAdClosed(new AdResult(AdType.Banner, true));
             }
         }
 
@@ -115,7 +115,7 @@ namespace AdMediationLab
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
                     isLoaded = true;
-                    AdMediationManager.OnAdLoaded?.Invoke(new AdResult(AdType.Interstitial, true));
+                    AdMediationManager.TriggerAdLoaded(new AdResult(AdType.Interstitial, true));
                 }, 1.5f));
         }
 
@@ -129,12 +129,12 @@ namespace AdMediationLab
             }
 
             Debug.Log("[InterstitialAd] 顯示插頁式廣告");
-            AdMediationManager.OnAdShown?.Invoke(new AdResult(AdType.Interstitial, true));
+            AdMediationManager.TriggerAdShown(new AdResult(AdType.Interstitial, true));
             
             // 模擬廣告顯示和關閉
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
-                    AdMediationManager.OnAdClosed?.Invoke(new AdResult(AdType.Interstitial, true));
+                    AdMediationManager.TriggerAdClosed(new AdResult(AdType.Interstitial, true));
                     isLoaded = false; // 插頁式廣告使用後需要重新載入
                     onComplete?.Invoke(true);
                 }, 3f));
@@ -176,7 +176,7 @@ namespace AdMediationLab
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
                     isLoaded = true;
-                    AdMediationManager.OnAdLoaded?.Invoke(new AdResult(AdType.Rewarded, true));
+                    AdMediationManager.TriggerAdLoaded(new AdResult(AdType.Rewarded, true));
                 }, 2f));
         }
 
@@ -190,14 +190,14 @@ namespace AdMediationLab
             }
 
             Debug.Log("[RewardedAd] 顯示獎勵式廣告");
-            AdMediationManager.OnAdShown?.Invoke(new AdResult(AdType.Rewarded, true));
+            AdMediationManager.TriggerAdShown(new AdResult(AdType.Rewarded, true));
             
             // 模擬獎勵式廣告流程
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
                     // 模擬用戶完成觀看獲得獎勵
-                    AdMediationManager.OnAdRewarded?.Invoke(new AdResult(AdType.Rewarded, true));
-                    AdMediationManager.OnAdClosed?.Invoke(new AdResult(AdType.Rewarded, true));
+                    AdMediationManager.TriggerAdRewarded(new AdResult(AdType.Rewarded, true));
+                    AdMediationManager.TriggerAdClosed(new AdResult(AdType.Rewarded, true));
                     isLoaded = false;
                     onComplete?.Invoke(true);
                 }, 4f));
@@ -239,7 +239,7 @@ namespace AdMediationLab
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
                     isLoaded = true;
-                    AdMediationManager.OnAdLoaded?.Invoke(new AdResult(AdType.RewardedInterstitial, true));
+                    AdMediationManager.TriggerAdLoaded(new AdResult(AdType.RewardedInterstitial, true));
                 }, 2f));
         }
 
@@ -253,12 +253,12 @@ namespace AdMediationLab
             }
 
             Debug.Log("[RewardedInterstitialAd] 顯示獎勵式插頁廣告");
-            AdMediationManager.OnAdShown?.Invoke(new AdResult(AdType.RewardedInterstitial, true));
+            AdMediationManager.TriggerAdShown(new AdResult(AdType.RewardedInterstitial, true));
             
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
-                    AdMediationManager.OnAdRewarded?.Invoke(new AdResult(AdType.RewardedInterstitial, true));
-                    AdMediationManager.OnAdClosed?.Invoke(new AdResult(AdType.RewardedInterstitial, true));
+                    AdMediationManager.TriggerAdRewarded(new AdResult(AdType.RewardedInterstitial, true));
+                    AdMediationManager.TriggerAdClosed(new AdResult(AdType.RewardedInterstitial, true));
                     isLoaded = false;
                     onComplete?.Invoke(true);
                 }, 4f));
@@ -300,7 +300,7 @@ namespace AdMediationLab
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
                     isLoaded = true;
-                    AdMediationManager.OnAdLoaded?.Invoke(new AdResult(AdType.AppOpen, true));
+                    AdMediationManager.TriggerAdLoaded(new AdResult(AdType.AppOpen, true));
                 }, 1f));
         }
 
@@ -314,11 +314,11 @@ namespace AdMediationLab
             }
 
             Debug.Log("[AppOpenAd] 顯示應用開啟廣告");
-            AdMediationManager.OnAdShown?.Invoke(new AdResult(AdType.AppOpen, true));
+            AdMediationManager.TriggerAdShown(new AdResult(AdType.AppOpen, true));
             
             UnityEngine.Object.FindObjectOfType<MonoBehaviour>()?.StartCoroutine(
                 DelayedCallback(() => {
-                    AdMediationManager.OnAdClosed?.Invoke(new AdResult(AdType.AppOpen, true));
+                    AdMediationManager.TriggerAdClosed(new AdResult(AdType.AppOpen, true));
                     isLoaded = false;
                     onComplete?.Invoke(true);
                 }, 2f));
